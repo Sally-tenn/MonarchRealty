@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Crown, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
 
-export function Footer() {
+export default function Footer() {
   const platformLinks = [
     { href: "/properties", label: "Properties" },
     { href: "/dashboard/agent", label: "Dashboard" },
@@ -48,9 +48,9 @@ export function Footer() {
               Comprehensive real estate management platform trusted by thousands of professionals worldwide.
             </p>
             <div className="flex space-x-4">
-              {socialLinks.map((social) => (
+              {socialLinks.map((social, index) => (
                 <a
-                  key={`social-${social.label}`}
+                  key={`social-${social.label}-${index}`}
                   href={social.href}
                   className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-primary-blue transition-colors"
                   aria-label={social.label}
@@ -65,8 +65,8 @@ export function Footer() {
           <div>
             <h4 className="font-semibold text-lg mb-6 font-['Poppins']">Platform</h4>
             <ul className="space-y-3 text-slate-400">
-              {platformLinks.map((link) => (
-                <li key={`platform-${link.href}`}>
+              {platformLinks.map((link, index) => (
+                <li key={`platform-${link.href}-${index}`}>
                   <Link href={link.href} className="hover:text-white transition-colors">
                     {link.label}
                   </Link>
@@ -79,8 +79,8 @@ export function Footer() {
           <div>
             <h4 className="font-semibold text-lg mb-6 font-['Poppins']">Resources</h4>
             <ul className="space-y-3 text-slate-400">
-              {resourceLinks.map((link) => (
-                <li key={`resource-${link.href}`}>
+              {resourceLinks.map((link, index) => (
+                <li key={`resource-${link.href}-${index}`}>
                   <Link href={link.href} className="hover:text-white transition-colors">
                     {link.label}
                   </Link>
@@ -93,8 +93,8 @@ export function Footer() {
           <div>
             <h4 className="font-semibold text-lg mb-6 font-['Poppins']">Company</h4>
             <ul className="space-y-3 text-slate-400">
-              {companyLinks.map((link) => (
-                <li key={`company-${link.href}`}>
+              {companyLinks.map((link, index) => (
+                <li key={`company-${link.href}-${index}`}>
                   <Link href={link.href} className="hover:text-white transition-colors">
                     {link.label}
                   </Link>
