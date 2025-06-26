@@ -14,6 +14,10 @@ import AdminDashboard from "@/pages/dashboard/admin";
 import InvestorDashboard from "@/pages/dashboard/investor";
 import Tutorials from "@/pages/tutorials";
 import Pricing from "@/pages/pricing";
+import About from "@/pages/about";
+import Contact from "@/pages/contact";
+import Analytics from "@/pages/analytics";
+import Support from "@/pages/support";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -32,6 +36,10 @@ function Router() {
           <Route path="/dashboard/investor" component={InvestorDashboard} />
           <Route path="/tutorials" component={Tutorials} />
           <Route path="/pricing" component={Pricing} />
+          <Route path="/about" component={About} />
+          <Route path="/contact" component={Contact} />
+          <Route path="/analytics" component={Analytics} />
+          <Route path="/support" component={Support} />
         </>
       )}
       <Route component={NotFound} />

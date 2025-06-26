@@ -86,7 +86,7 @@ export default function PropertySearch({ onSearch, loading }: PropertySearchProp
                 <SelectValue placeholder="Any Status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any Status</SelectItem>
+                <SelectItem value="all">Any Status</SelectItem>
                 <SelectItem value="for_sale">For Sale</SelectItem>
                 <SelectItem value="for_rent">For Rent</SelectItem>
                 <SelectItem value="sold">Sold</SelectItem>
@@ -107,7 +107,7 @@ export default function PropertySearch({ onSearch, loading }: PropertySearchProp
                 <SelectValue placeholder="Any" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any</SelectItem>
+                <SelectItem value="any">Any</SelectItem>
                 <SelectItem value="1">1+</SelectItem>
                 <SelectItem value="2">2+</SelectItem>
                 <SelectItem value="3">3+</SelectItem>
