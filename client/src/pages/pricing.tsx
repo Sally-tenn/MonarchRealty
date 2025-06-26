@@ -136,7 +136,7 @@ export default function Pricing() {
   return (
     <div className="min-h-screen bg-slate-50">
       <Navigation />
-      
+
       <main className="pt-24 pb-16">
         {/* Hero Section */}
         <section className="py-20 gradient-bg">
@@ -147,7 +147,7 @@ export default function Pricing() {
             <p className="text-xl text-blue-100 max-w-2xl mx-auto mb-8">
               Flexible pricing options designed to scale with your real estate business
             </p>
-            
+
             {/* Billing Toggle */}
             <div className="flex items-center justify-center mb-12">
               <div className="bg-white/20 backdrop-blur-lg rounded-xl p-2 inline-flex border border-white/30">

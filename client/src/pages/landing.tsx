@@ -8,7 +8,7 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-slate-50 smooth-scroll">
       <Navigation />
-      
+
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
         <div 
@@ -36,7 +36,7 @@ export default function Landing() {
                 Streamline your property management with AI-powered insights, comprehensive 
                 analytics, and seamless integration across all your real estate operations.
               </p>
-              
+
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
                 <div className="flex items-center text-blue-100">
                   <CheckCircle className="text-green-400 mr-3" size={20} />

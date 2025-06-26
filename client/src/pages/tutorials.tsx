@@ -110,7 +110,7 @@ export default function Tutorials() {
   return (
     <div className="min-h-screen bg-slate-50">
       <Navigation />
-      
+
       <main className="pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-6">
           {/* Header */}
@@ -310,7 +310,7 @@ export default function Tutorials() {
                   </p>
                 </div>
               </div>
-              
+
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <h4 className="font-semibold text-slate-dark mb-3">Smart Recommendations</h4>
@@ -347,7 +347,7 @@ export default function Tutorials() {
                   </ul>
                 </div>
               </div>
-              
+
               <div className="mt-6">
                 <Button className="bg-secondary-purple hover:bg-purple-700 text-white font-medium">
                   <PlayCircle className="mr-2" size={16} />

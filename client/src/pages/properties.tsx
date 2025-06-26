@@ -80,7 +80,7 @@ export default function Properties() {
   return (
     <div className="min-h-screen bg-slate-50">
       <Navigation />
-      
+
       <main className="pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-6">
           {/* Header */}
@@ -93,7 +93,7 @@ export default function Properties() {
                 Discover exceptional real estate opportunities with our advanced search and filtering capabilities
               </p>
             </div>
-            
+
             {(user?.role === 'agent' || user?.role === 'admin') && (
               <Button
                 onClick={() => {

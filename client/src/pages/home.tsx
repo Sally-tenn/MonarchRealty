@@ -72,7 +72,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-slate-50">
       <Navigation />
-      
+
       <main className="pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-6">
           {/* Welcome Section */}
@@ -194,7 +194,7 @@ export default function Home() {
                   </Button>
                 </Link>
               </div>
-              
+
               <div className="grid md:grid-cols-3 gap-6">
                 {recentProperties.slice(0, 3).map((property: any) => (
                   <GlassCard key={property.id} className="p-0">
