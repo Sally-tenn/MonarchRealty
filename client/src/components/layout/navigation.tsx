@@ -119,7 +119,7 @@ export default function Navigation() {
                 {item.label}
               </Link>
             ))}
-            
+
             {isAuthenticated && user ? (
               <div className="pt-4 border-t border-glass-border">
                 <div className="flex items-center space-x-3 mb-4">

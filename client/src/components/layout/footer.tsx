@@ -1,63 +1,66 @@
+
 import { Link } from "wouter";
-import { Crown, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+
+const platformLinks = [
+  { href: "/properties", label: "Properties" },
+  { href: "/analytics", label: "Analytics" },
+  { href: "/dashboard/agent", label: "Agent Dashboard" },
+  { href: "/dashboard/manager", label: "Manager Dashboard" },
+  { href: "/dashboard/investor", label: "Investor Dashboard" },
+  { href: "/dashboard/admin", label: "Admin Dashboard" }
+];
+
+const resourceLinks = [
+  { href: "/tutorials", label: "Tutorials" },
+  { href: "/api-docs", label: "API Docs" },
+  { href: "/help", label: "Help Center" },
+  { href: "/support", label: "Support" },
+  { href: "/integrations", label: "Integrations" }
+];
+
+const companyLinks = [
+  { href: "/about", label: "About" },
+  { href: "/careers", label: "Careers" },
+  { href: "/blog", label: "Blog" },
+  { href: "/community", label: "Community" },
+  { href: "/contact", label: "Contact" }
+];
+
+const legalLinks = [
+  { href: "/privacy", label: "Privacy Policy" },
+  { href: "/terms", label: "Terms of Service" }
+];
 
 export default function Footer() {
-  const platformLinks = [
-    { href: "/properties", label: "Properties" },
-    { href: "/dashboard/agent", label: "Dashboard" },
-    { href: "/tutorials", label: "Tutorials" },
-    { href: "/pricing", label: "Pricing" },
-  ];
-
-  const resourceLinks = [
-    { href: "/help", label: "Help Center" },
-    { href: "/api-docs", label: "API Documentation" },
-    { href: "/integrations", label: "Integrations" },
-    { href: "/blog", label: "Blog" },
-    { href: "/community", label: "Community" },
-  ];
-
-  const companyLinks = [
-    { href: "/about", label: "About Us" },
-    { href: "/careers", label: "Careers" },
-    { href: "/contact", label: "Contact" },
-    { href: "/privacy", label: "Privacy Policy" },
-    { href: "/terms", label: "Terms of Service" },
-  ];
-
-  const socialLinks = [
-    { href: "https://facebook.com", icon: Facebook, label: "Facebook" },
-    { href: "https://twitter.com", icon: Twitter, label: "Twitter" },
-    { href: "https://linkedin.com", icon: Linkedin, label: "LinkedIn" },
-    { href: "https://instagram.com", icon: Instagram, label: "Instagram" },
-  ];
-
   return (
     <footer className="bg-slate-900 text-white py-16">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {/* Brand Section */}
-          <div>
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center">
-                <Crown className="text-white text-lg" size={20} />
+      <div className="container mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+          {/* Company Info */}
+          <div className="lg:col-span-2">
+            <div className="flex items-center mb-6">
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
+                <span className="text-white font-bold text-lg">P</span>
               </div>
-              <h3 className="text-xl font-bold font-['Poppins']">Monarch Property</h3>
+              <span className="text-xl font-bold font-['Poppins']">PropertyPro</span>
             </div>
             <p className="text-slate-400 mb-6 leading-relaxed">
-              Comprehensive real estate management platform trusted by thousands of professionals worldwide.
+              Transform your real estate business with our comprehensive property management platform. 
+              Streamline operations, maximize profits, and deliver exceptional tenant experiences.
             </p>
             <div className="flex space-x-4">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={`social-${social.label}-${index}`}
-                  href={social.href}
-                  className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-primary-blue transition-colors"
-                  aria-label={social.label}
-                >
-                  <social.icon size={16} />
-                </a>
-              ))}
+              <Link href="/contact" className="text-slate-400 hover:text-white transition-colors">
+                <span className="sr-only">Contact</span>
+                📧
+              </Link>
+              <Link href="/blog" className="text-slate-400 hover:text-white transition-colors">
+                <span className="sr-only">Blog</span>
+                📝
+              </Link>
+              <Link href="/community" className="text-slate-400 hover:text-white transition-colors">
+                <span className="sr-only">Community</span>
+                👥
+              </Link>
             </div>
           </div>
 
@@ -66,7 +69,7 @@ export default function Footer() {
             <h4 className="font-semibold text-lg mb-6 font-['Poppins']">Platform</h4>
             <ul className="space-y-3 text-slate-400">
               {platformLinks.map((link, index) => (
-                <li key={`platform-${link.label}-${index}`}>
+                <li key={`platform-${index}`}>
                   <Link href={link.href} className="hover:text-white transition-colors">
                     {link.label}
                   </Link>
@@ -75,12 +78,12 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Resources Links */}
+          {/* Resources */}
           <div>
             <h4 className="font-semibold text-lg mb-6 font-['Poppins']">Resources</h4>
             <ul className="space-y-3 text-slate-400">
               {resourceLinks.map((link, index) => (
-                <li key={`resource-${link.label}-${index}`}>
+                <li key={`resource-${index}`}>
                   <Link href={link.href} className="hover:text-white transition-colors">
                     {link.label}
                   </Link>
@@ -89,12 +92,12 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Company Links */}
+          {/* Company */}
           <div>
             <h4 className="font-semibold text-lg mb-6 font-['Poppins']">Company</h4>
             <ul className="space-y-3 text-slate-400">
               {companyLinks.map((link, index) => (
-                <li key={`company-${link.label}-${index}`}>
+                <li key={`company-${index}`}>
                   <Link href={link.href} className="hover:text-white transition-colors">
                     {link.label}
                   </Link>
@@ -104,14 +107,22 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Footer Bottom */}
-        <div className="border-t border-slate-800 pt-8">
+        {/* Bottom Section */}
+        <div className="border-t border-slate-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-slate-400 mb-4 md:mb-0">
-              &copy; 2024 Monarch Property Management. All rights reserved.
-            </p>
-            <div className="flex items-center space-x-6 text-slate-400">
-              <span>Built with ❤️ for real estate professionals</span>
+            <div className="text-slate-400 text-sm mb-4 md:mb-0">
+              © 2024 PropertyPro. All rights reserved.
+            </div>
+            <div className="flex space-x-6">
+              {legalLinks.map((link, index) => (
+                <Link 
+                  key={`legal-${index}`} 
+                  href={link.href} 
+                  className="text-slate-400 hover:text-white text-sm transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
           </div>
         </div>
