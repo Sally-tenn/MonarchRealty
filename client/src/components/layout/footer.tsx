@@ -66,7 +66,7 @@ export default function Footer() {
             <h4 className="font-semibold text-lg mb-6 font-['Poppins']">Platform</h4>
             <ul className="space-y-3 text-slate-400">
               {platformLinks.map((link, index) => (
-                <li key={`platform-${link.href}-${index}`}>
+                <li key={`platform-${link.label}-${index}`}>
                   <Link href={link.href} className="hover:text-white transition-colors">
                     {link.label}
                   </Link>
@@ -80,7 +80,7 @@ export default function Footer() {
             <h4 className="font-semibold text-lg mb-6 font-['Poppins']">Resources</h4>
             <ul className="space-y-3 text-slate-400">
               {resourceLinks.map((link, index) => (
-                <li key={`resource-${link.href}-${index}`}>
+                <li key={`resource-${link.label}-${index}`}>
                   <Link href={link.href} className="hover:text-white transition-colors">
                     {link.label}
                   </Link>
@@ -94,7 +94,7 @@ export default function Footer() {
             <h4 className="font-semibold text-lg mb-6 font-['Poppins']">Company</h4>
             <ul className="space-y-3 text-slate-400">
               {companyLinks.map((link, index) => (
-                <li key={`company-${link.href}-${index}`}>
+                <li key={`company-${link.label}-${index}`}>
                   <Link href={link.href} className="hover:text-white transition-colors">
                     {link.label}
                   </Link>

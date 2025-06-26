@@ -1,7 +1,3 @@
-Fixes the import statement for the Footer component in the Properties component.
-```
-
-```typescript
 import { useState, useEffect } from "react";
 import { useQuery, useMutation, queryClient } from "@tanstack/react-query";
 import Navigation from "@/components/layout/navigation";
