@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Crown, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
 
-export default function Footer() {
+export function Footer() {
   const platformLinks = [
     { href: "/properties", label: "Properties" },
     { href: "/dashboard/agent", label: "Dashboard" },
@@ -50,7 +50,7 @@ export default function Footer() {
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
                 <a
-                  key={social.label}
+                  key={`social-${social.label}`}
                   href={social.href}
                   className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-primary-blue transition-colors"
                   aria-label={social.label}
@@ -66,7 +66,7 @@ export default function Footer() {
             <h4 className="font-semibold text-lg mb-6 font-['Poppins']">Platform</h4>
             <ul className="space-y-3 text-slate-400">
               {platformLinks.map((link) => (
-                <li key={link.href}>
+                <li key={`platform-${link.href}`}>
                   <Link href={link.href} className="hover:text-white transition-colors">
                     {link.label}
                   </Link>
@@ -80,7 +80,7 @@ export default function Footer() {
             <h4 className="font-semibold text-lg mb-6 font-['Poppins']">Resources</h4>
             <ul className="space-y-3 text-slate-400">
               {resourceLinks.map((link) => (
-                <li key={link.href}>
+                <li key={`resource-${link.href}`}>
                   <Link href={link.href} className="hover:text-white transition-colors">
                     {link.label}
                   </Link>
@@ -94,7 +94,7 @@ export default function Footer() {
             <h4 className="font-semibold text-lg mb-6 font-['Poppins']">Company</h4>
             <ul className="space-y-3 text-slate-400">
               {companyLinks.map((link) => (
-                <li key={link.href}>
+                <li key={`company-${link.href}`}>
                   <Link href={link.href} className="hover:text-white transition-colors">
                     {link.label}
                   </Link>

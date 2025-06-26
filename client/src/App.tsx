@@ -18,6 +18,14 @@ import About from "@/pages/about";
 import Contact from "@/pages/contact";
 import Analytics from "@/pages/analytics";
 import Support from "@/pages/support";
+import Help from "@/pages/help";
+import ApiDocs from "@/pages/api-docs";
+import Integrations from "@/pages/integrations";
+import Blog from "@/pages/blog";
+import Community from "@/pages/community";
+import Careers from "@/pages/careers";
+import Privacy from "@/pages/privacy";
+import Terms from "@/pages/terms";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -40,6 +48,14 @@ function Router() {
           <Route path="/contact" component={Contact} />
           <Route path="/analytics" component={Analytics} />
           <Route path="/support" component={Support} />
+          <Route path="/help" component={Help} />
+          <Route path="/api-docs" component={ApiDocs} />
+          <Route path="/integrations" component={Integrations} />
+          <Route path="/blog" component={Blog} />
+          <Route path="/community" component={Community} />
+          <Route path="/careers" component={Careers} />
+          <Route path="/privacy" component={Privacy} />
+          <Route path="/terms" component={Terms} />
         </>
       )}
       <Route component={NotFound} />

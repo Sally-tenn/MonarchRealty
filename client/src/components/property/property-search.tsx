@@ -63,7 +63,7 @@ export default function PropertySearch({ onSearch, loading }: PropertySearchProp
                 <SelectValue placeholder="All Types" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Types</SelectItem>
+                <SelectItem value="any">All Types</SelectItem>
                 <SelectItem value="single_family">Single Family</SelectItem>
                 <SelectItem value="condo">Condo</SelectItem>
                 <SelectItem value="townhouse">Townhouse</SelectItem>
