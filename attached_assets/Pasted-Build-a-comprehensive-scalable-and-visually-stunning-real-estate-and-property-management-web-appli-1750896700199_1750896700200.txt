@@ -1,0 +1,141 @@
+Build a comprehensive, scalable, and visually stunning real estate and property management web application with PostgreSQL backend and React TypeScript frontend. The app should feature a sleek modern UI with glassmorphism and 3D effects, advanced user authentication with multiple profiles and roles, full property management workflows, intelligent AI assistant support, rich analytics dashboards, tutorial system, and subscription plans. The solution must be production-ready, maintainable, and extensible.
+
+Core Requirements & Features:
+1. Frontend:
+React 18 + TypeScript SPA with smooth client-side routing (Wouter or React Router)
+
+Tailwind CSS for styling, implementing glassmorphism cards with blurred translucent backgrounds, 3D hover animations, gradient overlays, and floating hero elements
+
+Fonts: Inter + Poppins with professional typography
+
+Fully responsive design with 24px grid spacing, smooth scrolling, and elevated navigation bars with backdrop blur
+
+Navigation Header Bar: top fixed with swipe-scroll categorized menu grouping all main pages & features (Properties, Dashboard, Tutorials, Pricing, Profile, etc.)
+
+Hero Section: immersive, animated, detailed benefits, core solutions with data-driven metrics and clear CTAs (e.g. Start Free Trial, Watch Demo)
+
+Property Listings: searchable, filterable by price, location, type, status, bedrooms, bathrooms, features, with cards showing images, price, brief details
+
+Property Details Page: comprehensive info with image carousel, owner/agent info, features, map, and inquiry/contact forms
+
+Dashboards: personalized property management panels with data visualization (charts for occupancy, revenue, inquiries)
+
+Video Tutorial System: categorized tutorials with progress tracking and difficulty levels
+
+AI Assistant: floating chatbot panel at bottom-right on every page, providing intelligent guidance, FAQs, video tutorial suggestions, and personalized solutions
+
+Pricing & Subscription: clear tiered pricing plans with benefits, sign-up forms, and management
+
+Authentication UI: registration, login, role-based access (user, agent, manager, admin), profile settings with advanced preferences
+
+Accessibility: keyboard navigation, screen reader support, high contrast themes, voice command navigation
+
+Advanced UI Features: dynamic theming with seasonal variations, drag-and-drop dashboard widgets, component-level A/B testing hooks
+
+2. Backend:
+Node.js + Express.js with TypeScript for REST API
+
+PostgreSQL database integration via Drizzle ORM with strong typing and migration support
+
+Database schema includes Users (with roles and subscription plans), Properties (detailed fields + images + MLS integration ready), Tutorials, User Progress, Chat Sessions (for AI), Subscriptions, Analytics
+
+Secure authentication system with JWT/session handling, role-based authorization, and password hashing
+
+CRUD endpoints for all main resources, advanced filters for property search
+
+AI Assistant backend to store conversation history, context-aware response management
+
+Analytics APIs for fetching metrics, supporting dynamic reporting and data visualization
+
+Subscription management with status and billing dates
+
+Video tutorial metadata and progress tracking APIs
+
+3. Data & Sample Content:
+Populate database with rich sample data including:
+
+50+ property listings covering diverse types, locations, prices, features
+
+Multiple user profiles: agents, owners, managers, and admins
+
+20+ tutorials categorized by difficulty and topic
+
+Subscription plans with realistic pricing and features
+
+Simulated analytics data for demo dashboards
+
+Chat session logs for AI assistant demo
+
+4. Advanced Features & Enhancements (Challenge & Innovate):
+Reframe: Instead of just building a typical property platform, build a smart adaptive UI that learns from user engagement and optimizes layout dynamically.
+
+Implement AI-powered layout optimization that rearranges dashboard widgets based on usage patterns.
+
+Integrate voice navigation and commands for accessibility and futuristic control.
+
+Build a dynamic theming engine that changes colors and styles based on time of day, weather, or user preferences.
+
+Include component-level A/B testing infrastructure to continuously improve UI/UX.
+
+Use advanced data visualization with interactive charts (e.g. D3.js or Chart.js) supporting real-time analytics.
+
+Create a white-label customization module allowing brand-specific styling for clients without code changes.
+
+Add MLS live data integration stub ready for future real-time feeds.
+
+Incorporate real-time notifications for property status updates and chat messages.
+
+Prepare infrastructure for multi-language localization with typography adjustments.
+
+5. Design & Style Guide:
+Colors:
+
+Primary: #2563EB (modern blue)
+
+Secondary: #7C3AED (purple accent)
+
+Background: #F8FAFC (light grey)
+
+Glass: #FFFFFF20 (translucent white) with backdrop blur
+
+Text: #1E293B (slate)
+
+Success: #10B981 (emerald)
+
+Typography: Inter & Poppins
+
+UI Effects: glassmorphism with translucent frosted glass cards, 3D hover scale & shadow animations, gradient overlays on hero and CTAs
+
+Layout: responsive grid with consistent 24px gutters, floating elements in hero section, elevated blurred navigation bar
+
+Smooth scroll and micro-interactions on buttons and inputs
+
+Consistent spacing, hierarchy, and clean readable text across all pages
+
+6. Deliverables:
+Fully working web app with frontend, backend, and database
+
+Complete navigation structure with interconnected routes and subpages
+
+Robust sample data seeding scripts
+
+Well-documented API and frontend component structure
+
+Deployment-ready setup for Replit or similar (env config, build scripts)
+
+Instructions for extending features and customization
+
+Test coverage for critical backend and frontend parts
+
+Challenge Your Thinking:
+
+Don’t accept generic UI/UX solutions — rethink user flows to minimize clicks and increase engagement.
+
+Question default authentication flows; prioritize seamless onboarding and progressive profiling.
+
+Go beyond flat designs — make every interaction memorable with subtle animations and feedback.
+
+Ensure data privacy and security baked in, not bolted on.
+
+Consider scalability and modularity from day one to avoid costly rewrites.
+

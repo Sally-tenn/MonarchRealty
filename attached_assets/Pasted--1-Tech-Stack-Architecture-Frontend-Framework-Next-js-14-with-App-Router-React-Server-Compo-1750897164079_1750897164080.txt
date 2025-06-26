@@ -1,0 +1,233 @@
+🧰 1. Tech Stack & Architecture
+Frontend
+Framework: Next.js 14+ with App Router & React Server Components
+
+UI: Chakra UI + Framer Motion for fluid, accessible components
+
+Data Fetch: React Query or SWR (caching, retry, pagination)
+
+Forms: React Hook Form + Zod for schema validation
+
+Images: next/image + Cloudinary on-the-fly transformations
+
+Maps: @react-google-maps/api (lazy-loaded)
+
+Backend & API
+Database/Auth: Supabase (Postgres + RLS + JWT Auth)
+
+Serverless Logic: Supabase Edge Functions or Vercel Serverless Functions
+
+Payments: Stripe with webhooks & secure webhook handler
+
+File Storage: Supabase Storage or Cloudinary
+
+Realtime: Supabase Realtime for notifications & live collaboration
+
+DevOps & Infrastructure
+Hosting & Previews: Vercel (Preview & Prod environments)
+
+CI/CD: GitHub Actions (lint → typecheck → test → build → deploy)
+
+Secrets Management: GitHub Encrypted Secrets + .env.local (never commit!)
+
+Monorepo Tooling: Turborepo or Nx (if multi-package setup)
+
+Feature Flags: LaunchDarkly or Unleash for gradual rollouts
+
+Observability & Security
+Error Monitoring: Sentry with environment tags
+
+Logging & Traces: OpenTelemetry + Logflare or Datadog
+
+Vulnerability Scans: npm audit, Snyk, Dependabot/Renovate
+
+Runtime Security: CSP headers, Helmet middleware, rate limiting
+
+Auth & Access: OAuth2/OIDC + Role-Based Access Control (RBAC)
+
+🌟 2. Core Principles
+Modularity & Clean Code
+
+Single-responsibility modules, clear folder structure
+
+TypeScript everywhere, strict mode on
+
+Security by Design
+
+RLS on every table, 2FA enabled, secrets never exposed
+
+Performance & UX
+
+ISR & SSR where appropriate, lazy-load non-critical assets
+
+Lighthouse scores ≥ 90 for Performance, Accessibility, Best Practices
+
+Accessibility & Internationalization
+
+WCAG 2.2 AA compliance, automated axe checks in Cypress
+
+i18n via next-i18next or Lingui.js
+
+Observability & Feedback Loops
+
+Real-time error alerts, performance dashboards, user behavior analytics
+
+Continuous Improvement
+
+Every PR prompts clarifying questions, proposes potential UX or architecture optimizations
+
+Quarterly tech radar reviews to evolve stack & patterns
+
+🔧 3. Implementation Blueprints
+Next.js Patterns
+App Structure:
+
+bash
+Copy
+Edit
+/app
+  /(public)
+  /(auth)
+    /login
+    /register
+  /dashboard
+    /[role]/
+      page.tsx
+      layout.tsx
+  layout.tsx
+  page.tsx
+  error.tsx
+API Routes & Middleware:
+
+middleware.ts for JWT check + RBAC
+
+app/api/*.ts for lightweight SSR/Edge endpoints
+
+Data Loading:
+
+Server Components for critical path
+
+Client Components behind suspense + React Query
+
+Supabase Best Practices
+Security:
+
+Strict RLS policies, row-level privileges per role
+
+JWT refresh via secure HTTP-only cookies
+
+Edge Functions:
+
+Use for heavy payload transforms, external API orchestration
+
+Realtime Channels:
+
+Namespaced channels per tenant/project for isolation
+
+Testing Strategy
+Unit & Integration: Jest + React Testing Library with mocks via MSW
+
+E2E & Accessibility: Cypress + cypress-axe, run on CI with video/screenshots
+
+Contract Testing: Pact for front-to-back API contract validation
+
+Coverage Gates: ≥ 90% on core modules, 80% on utilities
+
+🔄 4. Navigation & Routing
+Sitemap Fidelity
+
+Auto-generate /sitemap.xml from route definitions
+
+Visual sitemap in docs (e.g., Miro embed)
+
+Universal Nav Components
+
+Header, Footer, Sidebar, Breadcrumbs → single source of truth
+
+ARIA roles, keyboard focus styles, visible labels
+
+Dynamic Route Handling
+
+Graceful 404 on missing IDs + redirect suggestions
+
+Pre-fetch adjacent pages on hover for snappy UX
+
+Automated Link Audit
+
+Cypress site crawl test: every <a> returns 200
+
+Jest snapshot test of navigation tree
+
+⚙️ 5. Environment Parity & Deployment
+Secrets & Variables
+
+Use .env.local (dev), GitHub Secrets (preview/prod)
+
+Strict naming: NEXT_PUBLIC_ vs. private vars
+
+Preview Pipelines
+
+Every PR → Vercel Preview + CI validation + preview comment
+
+QA team assigns ✅/❌ before merge
+
+Production Safeguards
+
+Manual approval step in GH Actions
+
+Post-deploy smoke test via Cypress
+
+Rollback Plan
+
+Instant rollback via Vercel UI or GitHub revert PR
+
+📚 6. Documentation & Onboarding
+ONBOARDING.md
+md
+Copy
+Edit
+# Onboarding
+1. Prerequisites  
+   - Node 20+, npm 9+, Vercel CLI
+2. Repo Setup  
+   - `git clone` → `npm ci` → copy `.env`
+3. Local Dev  
+   - `npm run dev`; view at http://localhost:3000
+4. Testing  
+   - `npm test`; `npx cypress open`
+5. Storybook  
+   - `npm run storybook` → view at http://localhost:6006
+6. Deploy  
+   - PRs trigger Preview; merge to `main` → Prod
+7. Troubleshooting  
+   - `scripts/dev-clean.sh` → clear caches  
+   - Check Sentry & Vercel logs
+CHANGELOG.md Template
+md
+Copy
+Edit
+## [Unreleased]
+
+### Added
+- Feature X with Y
+
+### Changed
+- Updated component Z to use React Server Component
+
+### Fixed
+- Bug #123: Handle null fetch response
+- Security: Hardened RLS policies
+🤝 7. Agent Manifest
+All Agents & Contributors Must
+
+Adhere to this spec as the single source of truth.
+
+Validate every change with automated tests, manual review, and performance audits.
+
+Document every new feature, script, and environment variable.
+
+Advance the stack: propose improvements, challenge assumptions, and automate repetitive work.
+
+Own the end-to-end flow: from spec → code → test → deploy → monitor.
+
+Never ship without security scans, accessibility audits, and performance benchmarks.
