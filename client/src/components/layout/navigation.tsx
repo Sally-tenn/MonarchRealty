@@ -82,12 +82,11 @@ export default function Navigation() {
               </Button>
             </>
           ) : (
-            <Button
-              onClick={() => window.location.href = '/api/login'}
-              className="bg-primary-blue hover:bg-blue-700 text-white font-medium"
-            >
-              Get Started
-            </Button>
+            <Link href="/api/login">
+              <Button variant="default" size="sm" className="bg-primary-blue hover:bg-blue-700 text-white px-6">
+                Get Started
+              </Button>
+            </Link>
           )}
         </div>
 

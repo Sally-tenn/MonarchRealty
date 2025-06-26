@@ -1,4 +1,3 @@
-
 import { Link } from "wouter";
 
 const platformLinks = [
