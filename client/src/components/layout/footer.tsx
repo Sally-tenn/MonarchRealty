@@ -10,26 +10,26 @@ export default function Footer() {
   ];
 
   const resourceLinks = [
-    { href: "#", label: "Help Center" },
-    { href: "#", label: "API Documentation" },
-    { href: "#", label: "Integrations" },
-    { href: "#", label: "Blog" },
-    { href: "#", label: "Community" },
+    { href: "/help", label: "Help Center" },
+    { href: "/api-docs", label: "API Documentation" },
+    { href: "/integrations", label: "Integrations" },
+    { href: "/blog", label: "Blog" },
+    { href: "/community", label: "Community" },
   ];
 
   const companyLinks = [
-    { href: "#", label: "About Us" },
-    { href: "#", label: "Careers" },
-    { href: "#", label: "Contact" },
-    { href: "#", label: "Privacy Policy" },
-    { href: "#", label: "Terms of Service" },
+    { href: "/about", label: "About Us" },
+    { href: "/careers", label: "Careers" },
+    { href: "/contact", label: "Contact" },
+    { href: "/privacy", label: "Privacy Policy" },
+    { href: "/terms", label: "Terms of Service" },
   ];
 
   const socialLinks = [
-    { href: "#", icon: Facebook, label: "Facebook" },
-    { href: "#", icon: Twitter, label: "Twitter" },
-    { href: "#", icon: Linkedin, label: "LinkedIn" },
-    { href: "#", icon: Instagram, label: "Instagram" },
+    { href: "https://facebook.com", icon: Facebook, label: "Facebook" },
+    { href: "https://twitter.com", icon: Twitter, label: "Twitter" },
+    { href: "https://linkedin.com", icon: Linkedin, label: "LinkedIn" },
+    { href: "https://instagram.com", icon: Instagram, label: "Instagram" },
   ];
 
   return (
@@ -67,10 +67,8 @@ export default function Footer() {
             <ul className="space-y-3 text-slate-400">
               {platformLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href}>
-                    <a className="hover:text-white transition-colors">
-                      {link.label}
-                    </a>
+                  <Link href={link.href} className="hover:text-white transition-colors">
+                    {link.label}
                   </Link>
                 </li>
               ))}
@@ -83,9 +81,9 @@ export default function Footer() {
             <ul className="space-y-3 text-slate-400">
               {resourceLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="hover:text-white transition-colors">
+                  <Link href={link.href} className="hover:text-white transition-colors">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -97,9 +95,9 @@ export default function Footer() {
             <ul className="space-y-3 text-slate-400">
               {companyLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="hover:text-white transition-colors">
+                  <Link href={link.href} className="hover:text-white transition-colors">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

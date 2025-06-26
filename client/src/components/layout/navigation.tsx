@@ -45,13 +45,15 @@ export default function Navigation() {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center space-x-8">
           {isAuthenticated && navigationItems.map((item) => (
-            <Link key={item.href} href={item.href}>
-              <a className={cn(
+            <Link 
+              key={item.href} 
+              href={item.href}
+              className={cn(
                 "text-slate-600 hover:text-primary-blue transition-colors font-medium",
                 location === item.href && "text-primary-blue"
-              )}>
-                {item.label}
-              </a>
+              )}
+            >
+              {item.label}
             </Link>
           ))}
         </div>
@@ -105,16 +107,16 @@ export default function Navigation() {
         <div className="lg:hidden mt-4 glass-card rounded-xl p-4">
           <div className="flex flex-col space-y-4">
             {isAuthenticated && navigationItems.map((item) => (
-              <Link key={item.href} href={item.href}>
-                <a 
-                  className={cn(
-                    "block px-4 py-2 text-slate-600 hover:text-primary-blue transition-colors font-medium rounded-lg",
-                    location === item.href && "text-primary-blue bg-blue-50"
-                  )}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </a>
+              <Link 
+                key={item.href} 
+                href={item.href}
+                className={cn(
+                  "block px-4 py-2 text-slate-600 hover:text-primary-blue transition-colors font-medium rounded-lg",
+                  location === item.href && "text-primary-blue bg-blue-50"
+                )}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.label}
               </Link>
             ))}
             

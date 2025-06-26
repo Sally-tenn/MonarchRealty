@@ -150,12 +150,12 @@ export default function Pricing() {
             
             {/* Billing Toggle */}
             <div className="flex items-center justify-center mb-12">
-              <GlassCard className="p-2 inline-flex">
+              <div className="bg-white/20 backdrop-blur-lg rounded-xl p-2 inline-flex border border-white/30">
                 <Button
                   variant="ghost"
                   className={`px-6 py-2 rounded-lg font-medium transition-all ${
                     billingCycle === 'monthly'
-                      ? "bg-white text-primary-blue shadow-sm"
+                      ? "bg-white text-blue-600 shadow-sm"
                       : "text-white hover:bg-white/20"
                   }`}
                   onClick={() => setBillingCycle('monthly')}
@@ -166,7 +166,7 @@ export default function Pricing() {
                   variant="ghost"
                   className={`px-6 py-2 rounded-lg font-medium transition-all ${
                     billingCycle === 'yearly'
-                      ? "bg-white text-primary-blue shadow-sm"
+                      ? "bg-white text-blue-600 shadow-sm"
                       : "text-white hover:bg-white/20"
                   }`}
                   onClick={() => setBillingCycle('yearly')}
@@ -174,7 +174,7 @@ export default function Pricing() {
                   Yearly
                   <Badge className="ml-2 bg-green-500 text-white">Save 17%</Badge>
                 </Button>
-              </GlassCard>
+              </div>
             </div>
           </div>
         </section>

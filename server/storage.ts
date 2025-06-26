@@ -19,8 +19,9 @@ import {
   type InsertAiChatMessage,
 } from "@shared/schema";
 import { db } from "./db";
-import { eq, and, desc, sql, ilike, gte, lte, count } from "drizzle-orm";
+import { eq, and, or, gte, lte, desc, sql, ilike } from "drizzle-orm";
 
+// Interface for storage operations
 export interface IStorage {
   // User operations (mandatory for Replit Auth)
   getUser(id: string): Promise<User | undefined>;
@@ -102,8 +103,8 @@ export class DatabaseStorage implements IStorage {
 
   // Property operations
   async createProperty(property: InsertProperty): Promise<Property> {
-    const [newProperty] = await db.insert(properties).values(property).returning();
-    return newProperty;
+    const [result] = await db.insert(properties).values(property).returning();
+    return result;
   }
 
   async getProperties(filters: {
@@ -120,8 +121,6 @@ export class DatabaseStorage implements IStorage {
     limit?: number;
     offset?: number;
   } = {}): Promise<Property[]> {
-    let query = db.select().from(properties);
-    
     const conditions = [];
     
     if (filters.search) {
@@ -147,15 +146,15 @@ export class DatabaseStorage implements IStorage {
     }
     
     if (filters.bedrooms) {
-      conditions.push(gte(properties.bedrooms, filters.bedrooms));
+      conditions.push(eq(properties.bedrooms, filters.bedrooms));
     }
     
     if (filters.bathrooms) {
-      conditions.push(gte(properties.bathrooms, filters.bathrooms.toString()));
+      conditions.push(eq(properties.bathrooms, filters.bathrooms.toString()));
     }
     
     if (filters.city) {
-      conditions.push(ilike(properties.city, `%${filters.city}%`));
+      conditions.push(eq(properties.city, filters.city));
     }
     
     if (filters.state) {
@@ -166,40 +165,46 @@ export class DatabaseStorage implements IStorage {
       conditions.push(eq(properties.agentId, filters.agentId));
     }
 
+    let query = db.select().from(properties);
+    
     if (conditions.length > 0) {
       query = query.where(and(...conditions));
     }
 
     query = query.orderBy(desc(properties.createdAt));
-
-    if (filters.limit) {
-      query = query.limit(filters.limit);
-    }
-
+    
     if (filters.offset) {
       query = query.offset(filters.offset);
+    }
+    
+    if (filters.limit) {
+      query = query.limit(filters.limit);
     }
 
     return await query;
   }
 
   async getProperty(id: number): Promise<Property | undefined> {
-    const [property] = await db.select().from(properties).where(eq(properties.id, id));
-    return property;
+    const [result] = await db.select().from(properties).where(eq(properties.id, id));
+    return result;
   }
 
   async updateProperty(id: number, updates: Partial<InsertProperty>): Promise<Property | undefined> {
-    const [property] = await db
+    const cleanUpdates = { ...updates };
+    delete (cleanUpdates as any).id;
+    delete (cleanUpdates as any).createdAt;
+    
+    const [result] = await db
       .update(properties)
-      .set({ ...updates, updatedAt: new Date() })
+      .set({ ...cleanUpdates, updatedAt: new Date() })
       .where(eq(properties.id, id))
       .returning();
-    return property;
+    return result;
   }
 
   async deleteProperty(id: number): Promise<boolean> {
     const result = await db.delete(properties).where(eq(properties.id, id));
-    return result.rowCount > 0;
+    return (result.rowCount ?? 0) > 0;
   }
 
   async getPropertiesByAgent(agentId: string): Promise<Property[]> {
@@ -208,8 +213,8 @@ export class DatabaseStorage implements IStorage {
 
   // Analytics operations
   async createAnalytics(analyticsData: InsertAnalytics): Promise<Analytics> {
-    const [newAnalytics] = await db.insert(analytics).values(analyticsData).returning();
-    return newAnalytics;
+    const [result] = await db.insert(analytics).values(analyticsData).returning();
+    return result;
   }
 
   async getAnalyticsByUser(userId: string, filters: {
@@ -218,27 +223,29 @@ export class DatabaseStorage implements IStorage {
     startDate?: Date;
     endDate?: Date;
   } = {}): Promise<Analytics[]> {
-    let query = db.select().from(analytics).where(eq(analytics.userId, userId));
-    
     const conditions = [eq(analytics.userId, userId)];
-    
+
     if (filters.metricName) {
       conditions.push(eq(analytics.metricName, filters.metricName));
     }
-    
+
     if (filters.propertyId) {
       conditions.push(eq(analytics.propertyId, filters.propertyId));
     }
-    
+
     if (filters.startDate) {
-      conditions.push(gte(analytics.metricDate, filters.startDate));
-    }
-    
-    if (filters.endDate) {
-      conditions.push(lte(analytics.metricDate, filters.endDate));
+      conditions.push(gte(analytics.createdAt, filters.startDate));
     }
 
-    return await db.select().from(analytics).where(and(...conditions)).orderBy(desc(analytics.metricDate));
+    if (filters.endDate) {
+      conditions.push(lte(analytics.createdAt, filters.endDate));
+    }
+
+    return await db
+      .select()
+      .from(analytics)
+      .where(and(...conditions))
+      .orderBy(desc(analytics.createdAt));
   }
 
   async getUserDashboardStats(userId: string): Promise<{
@@ -247,50 +254,50 @@ export class DatabaseStorage implements IStorage {
     occupancyRate: number;
     avgResponseTime: number;
   }> {
-    // Get total properties
-    const [totalPropertiesResult] = await db
-      .select({ count: count() })
+    // Get properties count for the user
+    const propertiesCount = await db
+      .select({ count: sql<number>`count(*)` })
       .from(properties)
       .where(eq(properties.agentId, userId));
-    
-    // Get recent revenue analytics
+
+    // Get revenue analytics
     const revenueAnalytics = await db
-      .select()
+      .select({ 
+        total: sql<number>`sum(cast(${analytics.metricValue} as decimal))` 
+      })
       .from(analytics)
       .where(and(
         eq(analytics.userId, userId),
-        eq(analytics.metricName, 'monthly_revenue')
-      ))
-      .orderBy(desc(analytics.metricDate))
-      .limit(1);
-    
+        eq(analytics.metricName, 'revenue')
+      ));
+
     // Get occupancy rate
     const occupancyAnalytics = await db
-      .select()
+      .select({ 
+        avg: sql<number>`avg(cast(${analytics.metricValue} as decimal))` 
+      })
       .from(analytics)
       .where(and(
         eq(analytics.userId, userId),
         eq(analytics.metricName, 'occupancy_rate')
-      ))
-      .orderBy(desc(analytics.metricDate))
-      .limit(1);
-    
+      ));
+
     // Get response time
     const responseTimeAnalytics = await db
-      .select()
+      .select({ 
+        avg: sql<number>`avg(cast(${analytics.metricValue} as decimal))` 
+      })
       .from(analytics)
       .where(and(
         eq(analytics.userId, userId),
-        eq(analytics.metricName, 'avg_response_time')
-      ))
-      .orderBy(desc(analytics.metricDate))
-      .limit(1);
+        eq(analytics.metricName, 'response_time')
+      ));
 
     return {
-      totalProperties: totalPropertiesResult.count,
-      totalRevenue: revenueAnalytics[0] ? parseFloat(revenueAnalytics[0].metricValue) : 0,
-      occupancyRate: occupancyAnalytics[0] ? parseFloat(occupancyAnalytics[0].metricValue) : 0,
-      avgResponseTime: responseTimeAnalytics[0] ? parseFloat(responseTimeAnalytics[0].metricValue) : 0,
+      totalProperties: propertiesCount[0]?.count || 0,
+      totalRevenue: revenueAnalytics[0]?.total || 0,
+      occupancyRate: occupancyAnalytics[0]?.avg || 0,
+      avgResponseTime: responseTimeAnalytics[0]?.avg || 0,
     };
   }
 
@@ -301,17 +308,17 @@ export class DatabaseStorage implements IStorage {
     limit?: number;
     offset?: number;
   } = {}): Promise<Tutorial[]> {
-    let query = db.select().from(tutorials);
-    
     const conditions = [];
-    
+
     if (filters.difficulty) {
       conditions.push(eq(tutorials.difficulty, filters.difficulty as any));
     }
-    
+
     if (filters.category) {
       conditions.push(eq(tutorials.category, filters.category));
     }
+
+    let query = db.select().from(tutorials);
 
     if (conditions.length > 0) {
       query = query.where(and(...conditions));
@@ -319,30 +326,30 @@ export class DatabaseStorage implements IStorage {
 
     query = query.orderBy(desc(tutorials.createdAt));
 
-    if (filters.limit) {
-      query = query.limit(filters.limit);
-    }
-
     if (filters.offset) {
       query = query.offset(filters.offset);
+    }
+
+    if (filters.limit) {
+      query = query.limit(filters.limit);
     }
 
     return await query;
   }
 
   async getTutorial(id: number): Promise<Tutorial | undefined> {
-    const [tutorial] = await db.select().from(tutorials).where(eq(tutorials.id, id));
-    return tutorial;
+    const [result] = await db.select().from(tutorials).where(eq(tutorials.id, id));
+    return result;
   }
 
   async getUserTutorialProgress(userId: string): Promise<(TutorialProgress & { tutorial: Tutorial })[]> {
-    return await db
+    const result = await db
       .select({
         id: tutorialProgress.id,
         userId: tutorialProgress.userId,
         tutorialId: tutorialProgress.tutorialId,
-        completed: tutorialProgress.completed,
         progressPercent: tutorialProgress.progressPercent,
+        completed: tutorialProgress.completed,
         completedAt: tutorialProgress.completedAt,
         createdAt: tutorialProgress.createdAt,
         updatedAt: tutorialProgress.updatedAt,
@@ -352,27 +359,31 @@ export class DatabaseStorage implements IStorage {
       .innerJoin(tutorials, eq(tutorialProgress.tutorialId, tutorials.id))
       .where(eq(tutorialProgress.userId, userId))
       .orderBy(desc(tutorialProgress.updatedAt));
+
+    return result as (TutorialProgress & { tutorial: Tutorial })[];
   }
 
   async upsertTutorialProgress(progressData: InsertTutorialProgress): Promise<TutorialProgress> {
-    const [progress] = await db
+    const [result] = await db
       .insert(tutorialProgress)
       .values(progressData)
       .onConflictDoUpdate({
         target: [tutorialProgress.userId, tutorialProgress.tutorialId],
         set: {
-          ...progressData,
+          progressPercent: progressData.progressPercent,
+          completed: progressData.completed,
+          completedAt: progressData.completed ? new Date() : null,
           updatedAt: new Date(),
         },
       })
       .returning();
-    return progress;
+    return result;
   }
 
   // AI Chat operations
   async createChatMessage(message: InsertAiChatMessage): Promise<AiChatMessage> {
-    const [newMessage] = await db.insert(aiChatMessages).values(message).returning();
-    return newMessage;
+    const [result] = await db.insert(aiChatMessages).values(message).returning();
+    return result;
   }
 
   async getUserChatHistory(userId: string, limit: number = 50): Promise<AiChatMessage[]> {
