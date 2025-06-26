@@ -1,6 +1,6 @@
 
 import { Navigation } from "@/components/layout/navigation";
-import { Footer } from "@/components/layout/footer";
+import Footer from "@/components/layout/footer";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Button } from "@/components/ui/button";
 import { Users, Target, Award, Building } from "lucide-react";
